@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { MapPin, Calendar, Users, X, MessageCircle, Navigation as NavIcon, Hotel, CheckCircle2 } from 'lucide-react'
 import { SplitText } from '../components/SplitText'
+import { supabase } from '../lib/supabase'
 
 const LOCATIONS = [
     {
@@ -135,6 +136,23 @@ export function PackageBuilderSection() {
     const handleSelectLocation = (loc: typeof LOCATIONS[0]) => {
         setSelectedLocation(loc)
         setDays(loc.minDays)
+    }
+
+    const saveBooking = async () => {
+        try {
+            await supabase.from('bookings').insert({
+                location: selectedLocation.name,
+                departure: departure,
+                days: days,
+                adults: adults,
+                children: children,
+                hotel_type: hotelType,
+                total_price: total,
+                advance_amount: advance,
+            })
+        } catch (err) {
+            console.error('Booking save failed:', err)
+        }
     }
 
     const whatsappMessage = encodeURIComponent(
@@ -391,6 +409,7 @@ export function PackageBuilderSection() {
                             href={`https://wa.me/923000000000?text=${whatsappMessage}`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={saveBooking}
                             className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-forest text-cream font-body text-sm font-medium tracking-nav rounded-full hover:shadow-[0_0_30px_rgba(30,91,58,0.4)] transition-all duration-300"
                         >
                             <MessageCircle className="w-4 h-4" /> CONFIRM ON WHATSAPP
