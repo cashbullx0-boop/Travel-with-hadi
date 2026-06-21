@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MapPin, Calendar, Users, X, MessageCircle, Navigation as NavIcon, Hotel, CheckCircle2 } from 'lucide-react'
+import { Calendar, Users, X, MessageCircle, Navigation as NavIcon, Hotel, CheckCircle2 } from 'lucide-react'
 import { SplitText } from '../components/SplitText'
 import { supabase } from '../lib/supabase'
 
@@ -178,8 +178,8 @@ export function PackageBuilderSection() {
                                 key={loc.name}
                                 onClick={() => handleSelectLocation(loc)}
                                 className={`relative rounded-xl overflow-hidden text-left transition-all duration-300 border ${selectedLocation.name === loc.name
-                                        ? 'border-forest ring-1 ring-forest'
-                                        : 'border-white/10 hover:border-white/30'
+                                    ? 'border-forest ring-1 ring-forest'
+                                    : 'border-white/10 hover:border-white/30'
                                     }`}
                             >
                                 <div className="aspect-[4/3] relative">
