@@ -6,4 +6,3 @@ git commit -m "Update website"
 git push origin main
 echo.
 echo Done! Window band karne ke liye koi key dabao.
-pause

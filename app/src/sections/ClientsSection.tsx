@@ -8,35 +8,35 @@ gsap.registerPlugin(ScrollTrigger)
 
 const CLIENTS = [
     {
-        place: 'Hunza Valley',
+        place: 'Fort Munro',
         image: '/images/client-1.jpeg',
     },
     {
-        place: 'Skardu',
+        place: 'Hunza Valley',
         image: '/images/client-2.jpeg',
     },
     {
-        place: 'Fairy Meadows',
+        place: 'China Border',
         image: '/images/client-3.jpeg',
     },
     {
-        place: 'Kashmir',
+        place: 'Hunza Valley',
         image: '/images/client-4.jpeg',
     },
     {
-        place: 'Naran',
+        place: 'Hunza Valley',
         image: '/images/client-5.jpeg',
     },
     {
-        place: 'Murree',
+        place: 'Naran',
         image: '/images/client-6.jpeg',
     },
     {
-        place: 'Attabad Lake',
+        place: 'Swat Kalam',
         image: '/images/client-7.jpeg',
     },
     {
-        place: 'Neelum Valley',
+        place: 'Murree',
         image: '/images/client-8.jpeg',
     },
 ]

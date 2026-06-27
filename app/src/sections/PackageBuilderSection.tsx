@@ -12,11 +12,11 @@ const LOCATIONS = [
         badge: 'Most Popular',
         included: ['Hotel Stay', 'Breakfast', 'Transport', 'Tour Guide'],
         itinerary: [
-            'Departure & travel to Hunza',
-            'Arrival, hotel check-in, Karimabad',
-            'Attabad Lake & Khunjerab views',
-            'Altit & Baltit Fort exploration',
-            'Departure back home',
+            'Travel to Naran',
+            'Towards Hunza, enjoy valley scenery',
+            'Towards China border, Hussaini Bridge & Attabad Lake',
+            'Altit Fort, Karimabad Bazar, move to Naran',
+            'Explore Naran & Saif-ul-Malook Lake, return home',
         ],
     },
     {
@@ -140,7 +140,7 @@ export function PackageBuilderSection() {
 
     const saveBooking = async () => {
         try {
-            await supabase.from('bookings').insert({
+            const { error } = await supabase.from('bookings').insert({
                 location: selectedLocation.name,
                 departure: departure,
                 days: days,
@@ -150,6 +150,9 @@ export function PackageBuilderSection() {
                 total_price: total,
                 advance_amount: advance,
             })
+            if (error) {
+                console.error('Booking save failed:', error)
+            }
         } catch (err) {
             console.error('Booking save failed:', err)
         }
@@ -158,6 +161,14 @@ export function PackageBuilderSection() {
     const whatsappMessage = encodeURIComponent(
         `Hi! I'd like to book a trip:\nLocation: ${selectedLocation.name}\nDeparture City: ${departure}\nHotel: ${hotelType}\nAdults: ${adults}\nChildren: ${children}\nDays: ${days}\n\nSubtotal: Rs ${subtotal.toLocaleString()}\nDiscount: ${discountPercent}%\nFinal Total: Rs ${total.toLocaleString()}\nAdvance: Rs ${advance.toLocaleString()}\n\nPlease confirm availability.`
     )
+
+    const handleConfirmOnWhatsApp = async () => {
+        // Save to Supabase FIRST, then redirect to WhatsApp.
+        // (Previously this was an <a href> with onClick={saveBooking}, which
+        // navigated away immediately and cancelled the pending insert request.)
+        await saveBooking()
+        window.open(`https://wa.me/923000000000?text=${whatsappMessage}`, '_blank')
+    }
 
     return (
         <section id="plan-trip" className="relative w-full bg-midnight py-24 lg:py-40">
@@ -405,15 +416,12 @@ export function PackageBuilderSection() {
                             </div>
                         </div>
 
-                        <a
-                            href={`https://wa.me/923000000000?text=${whatsappMessage}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={saveBooking}
+                        <button
+                            onClick={handleConfirmOnWhatsApp}
                             className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-forest text-cream font-body text-sm font-medium tracking-nav rounded-full hover:shadow-[0_0_30px_rgba(30,91,58,0.4)] transition-all duration-300"
                         >
                             <MessageCircle className="w-4 h-4" /> CONFIRM ON WHATSAPP
-                        </a>
+                        </button>
                         <p className="text-center font-body text-xs text-mist/50 mt-3">
                             Prices are estimates. Final price confirmed on contact.
                         </p>

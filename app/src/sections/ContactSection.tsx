@@ -4,8 +4,15 @@ import { Send } from 'lucide-react'
 const TOURS = [
   'Northern Explorer (10 Days)',
   'Hunza & Skardu (7 Days)',
+  'Hunza & Skardu (8 Days)',
   'Fairy Meadows Trek (5 Days)',
+  'Hunza (5 Days)',
+  'Skardu (6 Days)',
   'Kashmir Valley (6 Days)',
+  'Naran (3 Days)',
+  'Kashmir (3 Days)',
+  'Swat Kalam (3 Days)',
+  'Murree (3 Days)',
   'Custom Itinerary',
 ]
 
